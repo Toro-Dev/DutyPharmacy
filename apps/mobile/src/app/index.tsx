@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -33,7 +33,10 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={styles.content}>
+        <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        >
           <View style={styles.hero}>
             <ThemedText type="title" style={styles.heroTitle}>
               Need a pharmacy now?
@@ -95,7 +98,7 @@ export default function HomeScreen() {
               </ThemedText>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ThemedView>
   );
