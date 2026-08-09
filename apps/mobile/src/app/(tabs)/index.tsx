@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,6 +11,20 @@ const QUICK_CITIES = ['Tangier', 'Casablanca', 'Rabat', 'Marrakesh'];
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
+  const router = useRouter();
+
+const openResults = (value = query) => {
+  const city = value.trim();
+
+  if (!city) {
+    return;
+  }
+
+  router.push({
+    pathname: '/results',
+    params: { city },
+  });
+};
 
   return (
     <ThemedView style={styles.screen}>
@@ -61,11 +76,13 @@ export default function HomeScreen() {
               />
             </View>
             <Pressable
+              onPress={() => openResults()}
               accessibilityRole="button"
               style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
             >
               <ThemedText style={styles.primaryButtonText}>Find duty pharmacies</ThemedText>
-            </Pressable>
+              
+            </Pressable> 
           </View>
 
           <View style={styles.sectionHeader}>
@@ -78,7 +95,7 @@ export default function HomeScreen() {
               <Pressable
                 key={city}
                 accessibilityRole="button"
-                onPress={() => setQuery(city)}
+                onPress={() => openResults(city)}
                 style={({ pressed }) => [styles.cityCard, pressed && styles.pressed]}
               >
                 <ThemedText style={styles.cityIcon}>⌖</ThemedText>
